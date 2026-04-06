@@ -2,19 +2,16 @@
 
 ## Azure vs AWS vs GCP
 
-
-| Topic                            | Azure service         | AWS service(s)                                                  | GCP service(s)                                                  |
-| -------------------------------- | --------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| Functions (triggers & bindings)  | **Azure Functions**   | **AWS Lambda**                                                  | **Google Cloud Functions**                                      |
-| Stateful orchestration           | **Durable Functions** | **AWS Step Functions**                                          | **Google Cloud Workflows**                                      |
-| Low-code integration             | **Azure Logic Apps**  | **AWS Step Functions**, **Amazon EventBridge**, **AWS AppFlow** | **Google Cloud Workflows**, **Application Integration**         |
-| Queues & pub/sub messaging       | **Azure Service Bus** | **Amazon SQS**, **Amazon SNS**                                  | **Google Cloud Pub/Sub**                                        |
-| Event routing / cloud events     | **Azure Event Grid**  | **Amazon EventBridge**                                          | **Google Cloud Eventarc**                                       |
-| High-throughput streaming ingest | **Azure Event Hubs**  | **Amazon Kinesis Data Streams**                                 | **Google Cloud Pub/Sub** (+ **Dataflow** for stream processing) |
-
+| Topic                            | Azure service         | AWS service(s)                  | GCP service(s)                                                  |
+| -------------------------------- | --------------------- | ------------------------------- | --------------------------------------------------------------- |
+| Functions (triggers & bindings)  | **Azure Functions**   | **AWS Lambda**                  | **Google Cloud Functions**                                      |
+| Stateful orchestration           | **Durable Functions** | **AWS Step Functions**          | **Google Cloud Workflows**                                      |
+| Low-code integration             | **Azure Logic Apps**  | **AWS Step Functions**          | **Google Cloud Workflows**, **Application Integration**         |
+| Queues & pub/sub messaging       | **Azure Service Bus** | **Amazon SQS**, **Amazon SNS**  | **Google Cloud Pub/Sub**                                        |
+| Event routing / cloud events     | **Azure Event Grid**  | **Amazon EventBridge**          | **Google Cloud Eventarc**                                       |
+| High-throughput streaming ingest | **Azure Event Hubs**  | **Amazon Kinesis Data Streams** | **Google Cloud Pub/Sub** (+ **Dataflow** for stream processing) |
 
 ### Function Comparison
-
 
 | Service       | Azure (Azure Functions)                                                                  | AWS (Lambda)                                                                      | GCP (Cloud Functions)                                                      |
 | ------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -24,9 +21,7 @@
 | **Price**     | Pay per run + GB-s; free tier; Premium/Dedicated optional.                               | Per request + GB-s; free tier; extra for provisioned concurrency.                 | Per invocation + GB-s/GHz-s; free tier.                                    |
 | **+ / −**     | + Bindings, Azure fit. − Cold starts (Consumption), binding lock-in.                     | + Huge trigger set, mature. − No bindings, 15 min cap, package limits.            | + Simple, gen 2 on Cloud Run. − Fewer built-in triggers than Lambda.       |
 
-
 ### Orchestrating Functions Comparison
-
 
 | Service       | Azure (Durable Functions)                                   | AWS (Step Functions)                                               | GCP (Workflows)                                        |
 | ------------- | ----------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------ |
@@ -36,9 +31,7 @@
 | **Price**     | Function executions + state storage.                        | Per state transition (Standard) or request+duration (Express).     | Per workflow step (internal vs external HTTP differs). |
 | **+ / −**     | + Code-first patterns. − Replay rules, debugging.           | + Visual, huge catalog. − ASL verbosity, cost at scale (Standard). | + Simple YAML. − Less expressive than ASL/Durable.     |
 
-
 ### Logic App Comparison
-
 
 | Service        | Azure (Logic Apps)                                                   | AWS (Step Functions + EventBridge + AppFlow)                                                        | GCP (Workflows + Application Integration)                                                        |
 | -------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -49,9 +42,7 @@
 | **Price**      | Per action + connector tier; Standard = capacity-based.              | Step Functions + EventBridge + AppFlow each priced.                                                 | Per step + connector usage (varies).                                                             |
 | **+ / −**      | + Best connector breadth. − Complex flows, connector cost.           | + Flexible for devs. − Not one Logic Apps–style designer.                                           | + GCP-native. − Split products, smaller catalog vs Logic Apps.                                   |
 
-
 ### Bus Comparison
-
 
 | Service       | Azure (Service Bus)                                            | AWS (SQS + SNS)                                                    | GCP (Pub/Sub)                                                               |
 | ------------- | -------------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
@@ -61,9 +52,7 @@
 | **Price**     | Tiered (Basic/Standard/Premium); ops + capacity units.         | Per SQS request + SNS publish/delivery; free tiers.                | Data volume (ingest/egress); min billable size per message.                 |
 | **+ / −**     | + Enterprise patterns (sessions, dup detect). − Pricing/tiers. | + Simple, huge scale. − Two services for full pub/sub+queue story. | + Unified model, replay. − No classic queues/transactions like Service Bus. |
 
-
 ### Event Comparison
-
 
 | Service       | Azure (Event Grid)                                                   | AWS (EventBridge)                                                 | GCP (Eventarc)                                                     |
 | ------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ |
@@ -73,9 +62,7 @@
 | **Price**     | Per published event (+ free tier).                                   | Per event (+ free tier on default bus for AWS events).            | Charged as Pub/Sub + audit usage (no separate Eventarc line item). |
 | **+ / −**     | + Azure-native, CloudEvents. − Fewer SaaS partners than EventBridge. | + Richest rules/partners, archive. − Cost vs Event Grid at scale. | + Cheap with GCP events. − Routing less general than EventBridge.  |
 
-
 ### Ingestion Comparison
-
 
 | Service       | Azure (Event Hubs)                                                   | AWS (Kinesis Data Streams)                                           | GCP (Pub/Sub + Dataflow)                                                                         |
 | ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -84,5 +71,3 @@
 | **Observe**   | Monitor, lag, logs.                                                  | CloudWatch, shard metrics, iterator age.                             | Backlog metrics, Dataflow dashboards.                                                            |
 | **Price**     | Throughput/processing units + ingress (+ Capture).                   | Per shard/stream or on-demand + data out.                            | Pub/Sub volume + Dataflow resources (+ Pub/Sub Lite option).                                     |
 | **+ / −**     | + Kafka wire compatibility, Capture. − Capacity planning (Standard). | + Mature streaming on AWS. − Shards ops (provisioned), no Kafka API. | + Fully managed scale, BigQuery path. − Kafka needs a bridge; processing is separate (Dataflow). |
-
-
